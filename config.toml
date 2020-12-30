@@ -2,6 +2,7 @@ baseURL = "http://example.org/"
 languageCode = "it-IT"
 title = "My New Hugo Site"
 theme="hello-friend"
+publishDir="docs"
 
 paginate = 5
 
