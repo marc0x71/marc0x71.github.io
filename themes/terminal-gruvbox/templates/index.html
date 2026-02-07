@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Intro homepage -->
+<section style="margin-bottom: 3rem;">
+    <h1 style="color: var(--accent); margin-bottom: 1rem;">Ciao! 👋</h1>
+    <p>
+        Benvenuto nel mio blog dove scrivo di <strong>Rust</strong>, <strong>Neovim</strong> e programmazione.
+    </p>
+</section>
+
+<!-- Ultimi post dal blog -->
+{% set blog_section = get_section(path="blog/_index.md") %}
+
+<h2 style="margin-bottom: 1.5rem;">Ultimi Post</h2>
+
+<div class="post-list">
+    {% for page in blog_section.pages | slice(end=5) %}
+    <article class="post-item">
+        <h3 class="post-title">
+            <a href="{{ page.permalink }}">{{ page.title }}</a>
+        </h3>
+        
+        <div class="post-meta">
+            {{ page.date | date(format="%Y-%m-%d") }}
+            {% if page.reading_time %}
+            &nbsp;·&nbsp; {{ page.reading_time }} min lettura
+            {% endif %}
+        </div>
+        
+        {% if page.description %}
+        <p class="post-summary">{{ page.description }}</p>
+        {% endif %}
+        
+        {% if page.taxonomies.tags %}
+        <div class="tags">
+            {% for tag in page.taxonomies.tags %}
+            <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
+
+<!-- Link per vedere tutti i post -->
+{% if blog_section.pages | length > 5 %}
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="{{ blog_section.permalink }}" class="tag" style="font-size: 1rem;">
+        Vedi tutti i {{ blog_section.pages | length }} post →
+    </a>
+</div>
+{% endif %}
+{% endblock %}

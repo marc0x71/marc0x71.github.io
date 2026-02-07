@@ -1,0 +1,123 @@
+// sass/custom.scss
+
+// ========================================
+// IMPORTANTE: Questo file viene caricato DOPO il tema
+// quindi sovrascrive gli stili di Terminimal
+// ========================================
+
+// Dimensione Font Base
+html {
+  font-size: 28px;
+}
+
+body {
+  line-height: 1.7;
+}
+
+// ========================================
+// Stili Titoli (h2-h6) 
+// ========================================
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #b8bb26; // Verde Gruvbox
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid #b8bb26;
+  padding-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+// ========================================
+// Miglioramenti Leggibilità
+// ========================================
+article p {
+  margin-bottom: 1.2rem;
+}
+
+article ul,
+article ol {
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+article li {
+  margin-bottom: 0.7rem;
+}
+
+// Codice inline
+:not(pre)>code {
+  background: #3c3836;
+  color: #b8bb26;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.95em;
+  border: 1px solid #b8bb26;
+}
+
+// Blocchi di codice
+pre {
+  padding: 1.5rem;
+  border-left: 4px solid #b8bb26;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+// Quote
+blockquote {
+  border-left: 4px solid #b8bb26;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  opacity: 0.9;
+  color: #b8bb26;
+}
+
+h2 {
+  color: #b8bb26;
+}
+
+// Gruvbox bright green
+h3 {
+  color: #98971a;
+}
+
+// Gruvbox green
+h4 {
+  color: #689d6a;
+}
+
+// Gruvbox aqua
+h5 {
+  color: #83a598;
+}
+
+// Gruvbox blue
+h6 {
+  color: #8ec07c;
+}
+
+// Gruvbox cyan

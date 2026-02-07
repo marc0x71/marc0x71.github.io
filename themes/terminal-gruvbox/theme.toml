@@ -1,0 +1,10 @@
+# themes/terminal-gruvbox/theme.toml
+name = "terminal-gruvbox"
+description = "Minimal terminal-style theme with Gruvbox Material Dark palette"
+license = "MIT"
+homepage = "https://github.com/marc0x71"
+min_version = "0.22.0"
+
+[author]
+name = "Marco"
+homepage = "https://marc0x71.github.io"

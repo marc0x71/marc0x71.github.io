@@ -1,0 +1,25 @@
+# config.toml
+base_url = "https://marc0x71.github.io"
+title = "~/il-codice-di-marco"
+description = "Blog su Rust, Neovim e programmazione"
+
+# USA IL NOSTRO TEMA!
+theme = "terminal-gruvbox"
+
+compile_sass = false  # Non serve, usiamo CSS vanilla
+
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+taxonomies = [
+    {name = "tags", feed = true},
+]
+
+default_language = "it"
+
+[markdown]
+external_links_target_blank = true
+smart_punctuation = true
+
+# [markdown.highlighting]
+# theme = "base16-ocean-dark"
