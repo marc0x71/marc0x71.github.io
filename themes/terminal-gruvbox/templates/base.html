@@ -36,6 +36,8 @@
                 &copy; {{ now() | date(format="%Y") }} {{ config.title }}
                 &nbsp;|&nbsp;
                 Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a>
+                &nbsp;|&nbsp;
+                <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}" title="RSS Feed">RSS 📡</a>
             </p>
         </footer>
     </div>
