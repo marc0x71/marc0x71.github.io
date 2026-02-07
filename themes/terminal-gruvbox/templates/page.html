@@ -10,6 +10,21 @@
 <article>
     <header>
         <h1>{{ page.title }}</h1>
+
+        <!-- Language Switcher -->
+        {% if page.translations %}
+        <div style="margin-bottom: 1rem; color: var(--fg3);">
+            Also available in: 
+            {% for trans in page.translations %}
+            <a href="{{ trans.permalink }}" style="color: var(--blue); text-decoration: underline;">
+                {% if trans.lang == "en" %}🇬🇧 English{% endif %}
+                {% if trans.lang == "it" %}🇮🇹 Italiano{% endif %}
+            </a>
+            {% if not loop.last %} | {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="post-meta">
             {{ page.date | date(format="%Y-%m-%d") }}
             {% if page.reading_time %}

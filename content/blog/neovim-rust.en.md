@@ -1,7 +1,7 @@
 +++
-title = "Guida Completa: Neovim 0.11 IDE per Rust su Ubuntu/MacOS"
+title = "Complete Guide: Neovim 0.11 IDE for Rust on Ubuntu/MacOS"
 date = 2025-10-15
-description = "Se sei uno sviluppatore Rust alla ricerca di un editor di testo che sia allo stesso tempo leggero, veloce e incredibilmente personalizzabile, Neovim è la scelta perfetta. Dimentica i pesanti IDE tradizionali: con questa guida, trasformeremo Neovim in un ambiente di sviluppo Rust moderno e produttivo, su misura per le tue esigenze."
+description = "If you're a Rust developer looking for a text editor that's lightweight, fast, and incredibly customizable, Neovim is the perfect choice. Forget heavy traditional IDEs: with this guide, we'll transform Neovim into a modern and productive Rust development environment, tailored to your needs."
 
 [taxonomies]
 tags = ["rust", "neovim"]
@@ -10,129 +10,129 @@ tags = ["rust", "neovim"]
 comments = true
 +++
 
-Benvenuto in questa guida completa all'installazione e alla configurazione di Neovim 0.11 per lo sviluppo in Rust! 🦀
+Welcome to this complete guide to installing and configuring Neovim 0.11 for Rust development! 🦀
 
-![configurazione-neovim-rust](https://github.com/user-attachments/assets/1bcf3da2-0c38-48cd-a1e6-faa84c78460d)
+![neovim-rust-configuration](https://github.com/user-attachments/assets/1bcf3da2-0c38-48cd-a1e6-faa84c78460d)
 
-Se sei uno sviluppatore Rust alla ricerca di un editor di testo che sia allo stesso tempo leggero, veloce e incredibilmente personalizzabile, Neovim è la scelta perfetta. Dimentica i pesanti IDE tradizionali: con questa guida, trasformeremo Neovim in un ambiente di sviluppo Rust moderno e produttivo, su misura per le tue esigenze.
+If you're a Rust developer looking for a text editor that's lightweight, fast, and incredibly customizable, Neovim is the perfect choice. Forget heavy traditional IDEs: with this guide, we'll transform Neovim into a modern and productive Rust development environment, tailored to your needs.
 
-In questa guida vedremo come:
+In this guide, we'll see how to:
 
-Installare l'ultima versione di Neovim (0.11).
+Install the latest version of Neovim (0.11).
 
-Configurare da zero un ambiente di sviluppo minimale utilizzando Lua.
+Configure from scratch a minimal development environment using Lua.
 
-Integrare rust-analyzer tramite il Language Server Protocol (LSP) nativo di Neovim per ottenere funzionalità da IDE come l'autocompletamento, la diagnostica in tempo reale e la navigazione del codice.
+Integrate rust-analyzer through Neovim's native Language Server Protocol (LSP) to get IDE features like autocompletion, real-time diagnostics, and code navigation.
 
-Impostare il syntax highlighting con Tree-sitter per un'analisi del codice più precisa e veloce.
+Set up syntax highlighting with Tree-sitter for more precise and faster code analysis.
 
-Alla fine di questo percorso, avrai una configurazione Neovim funzionale e performante, pronta per affrontare qualsiasi progetto Rust. Iniziamo!
+By the end of this journey, you'll have a functional and performant Neovim configuration, ready to tackle any Rust project. Let's begin!
 
 
-## Prerequisiti e Dipendenze di Sistema
+## Prerequisites and System Dependencies
 
-### Installazione su GNU/Linux (Ubuntu)
-Prima di iniziare, installiamo tutte le dipendenze necessarie:
+### Installation on GNU/Linux (Ubuntu)
+Before we start, let's install all necessary dependencies:
 
 ```bash
-# Aggiorna il sistema
+# Update the system
 sudo apt update && sudo apt upgrade -y
 
-# Dipendenze per i plugin
+# Plugin dependencies
 sudo apt install -y ripgrep fd-find
 
-# Build essentials (necessari per compilare parser Treesitter e alcune estensioni Rust)
+# Build essentials (required to compile Treesitter parsers and some Rust extensions)
 sudo apt install -y build-essential git curl
 
-# Node.js (opzionale, necessario solo per alcuni LSP non-Rust)
+# Node.js (optional, only needed for some non-Rust LSPs)
 sudo apt install -y nodejs
 
-# Creiamo un symlink per fd (su Ubuntu si chiama fdfind)
+# Create a symlink for fd (on Ubuntu it's called fdfind)
 sudo ln -s $(which fdfind) /usr/local/bin/fd 2>/dev/null || true
 ```
 
 ### MacOS
 
-Su macOS useremo Homebrew come package manager:
+On macOS we'll use Homebrew as the package manager:
 
 ```bash
-# Installa Homebrew se non già installato
+# Install Homebrew if not already installed
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Installa Xcode Command Line Tools (contiene gcc, git, etc.)
+# Install Xcode Command Line Tools (contains gcc, git, etc.)
 xcode-select --install
 
-# Dipendenze per i plugin
+# Plugin dependencies
 brew install ripgrep fd
 
-# Node.js (opzionale, utile per altri linguaggi)
+# Node.js (optional, useful for other languages)
 brew install node
 ```
-**Spiegazione delle dipendenze:**
-- **ripgrep**: ricerca velocissima nei file, usata da Telescope
-- **fd**: alternativa moderna a `find`, usata da Telescope
-- **build-essential**: gcc e g++ necessari per compilare i parser Treesitter
-- **Node.js**: opzionale, ma utile se userai altri linguaggi oltre a Rust
+**Dependency explanation:**
+- **ripgrep**: extremely fast file search, used by Telescope
+- **fd**: modern alternative to `find`, used by Telescope
+- **build-essential**: gcc and g++ needed to compile Treesitter parsers
+- **Node.js**: optional, but useful if you'll use other languages besides Rust
 
 ---
 
-## Installazione di Neovim 0.11
+## Installing Neovim 0.11
 
-### Installazione su MacOS
+### Installation on MacOS
 
-Per eseguire l'installazione di NeoVim, basterà:
+To install Neovim, simply run:
 
 ```bash
 brew install neovim
 ```
 
-### Installazione su GNU/Linux (Ubuntu)
+### Installation on GNU/Linux (Ubuntu)
 
-Per questa guida prendiamo come riferimento la distribuzione GNU/Linux Ubuntu.
+For this guide, we'll use the Ubuntu GNU/Linux distribution as reference.
 
-Installiamo Neovim tramite snap:
+Let's install Neovim via snap:
 
 ```bash
-# Installa Neovim 0.11 tramite snap (flag --classic per accesso completo al sistema)
+# Install Neovim 0.11 via snap (--classic flag for full system access)
 sudo snap install nvim --classic
 
-# Verifichiamo l'installazione
+# Verify the installation
 nvim --version
 ```
 
-Dovresti vedere output simile a:
+You should see output similar to:
 ```
 NVIM v0.11.4
 Build type: Release
 ...
 ```
 
-**Perché usare snap?**
-- ✅ Installazione rapida (pochi secondi vs 10-15 minuti di compilazione)
-- ✅ Sempre aggiornato al latest stable
-- ✅ Aggiornamenti automatici gestiti da snap
-- ✅ Nessuna dipendenza di build necessaria
+**Why use snap?**
+- ✅ Quick installation (few seconds vs 10-15 minutes of compilation)
+- ✅ Always updated to latest stable
+- ✅ Automatic updates managed by snap
+- ✅ No build dependencies needed
 
-**Nota**: Il flag `--classic` è necessario perché Neovim deve accedere liberamente ai file del sistema per funzionare come editor.
+**Note**: The `--classic` flag is necessary because Neovim needs to freely access system files to function as an editor.
 
-### Metodo alternativo: Compilazione dai sorgenti
+### Alternative method: Compiling from source
 
-Se preferisci compilare dai sorgenti per avere il controllo completo, su Ubuntu ti servirà:
+If you prefer to compile from source to have complete control, on Ubuntu you'll need:
 
 ```bash
-# Installa dipendenze di build
+# Install build dependencies
 sudo apt install -y ninja-build gettext cmake unzip
 ```
-mentre su MacOS:
+while on MacOS:
 
 ```bash
-# Installa dipendenze di build
+# Install build dependencies
 brew install ninja cmake gettext
 ```
-Possiamo ora compilare NeoVim per il nostro sistema:
+We can now compile Neovim for our system:
 
 ```bash
-# Scarica e compila
+# Download and compile
 mkdir -p ~/build && cd ~/build
 git clone https://github.com/neovim/neovim.git
 cd neovim
@@ -141,103 +141,103 @@ make CMAKE_BUILD_TYPE=Release
 sudo make install
 ```
 
-Pro: Controllo totale sulla versione e opzioni di build  
-Contro: Richiede 10-15 minuti e più dipendenze
+Pro: Complete control over version and build options  
+Con: Requires 10-15 minutes and more dependencies
 
 ---
 
-## Installazione Toolchain Rust
+## Installing Rust Toolchain
 
-Installiamo Rust e i componenti necessari per lo sviluppo:
+Let's install Rust and the components necessary for development:
 
 ```bash
-# Installa rustup (gestore della toolchain Rust)
+# Install rustup (Rust toolchain manager)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Ricarichiamo il PATH
+# Reload the PATH
 source "$HOME/.cargo/env"
 
-# Installiamo i componenti necessari se non precedentemente installati
-rustup component add rust-analyzer  # LSP per Rust
+# Install necessary components if not previously installed
+rustup component add rust-analyzer  # LSP for Rust
 rustup component add rustfmt         # Formatter
 rustup component add clippy          # Linter
 
-# Verifichiamo l'installazione
+# Verify the installation
 rustc --version
 cargo --version
 rust-analyzer --version
 ```
 
-**Nota importante**: 
-- `rust-analyzer` è il language server che fornisce autocompletamento, diagnostica e altre funzionalità IDE (LSP)
-- **codelldb** (debugger) verrà installato automaticamente tramite Mason (plugin di Neovim) nella sezione successiva
+**Important note**: 
+- `rust-analyzer` is the language server that provides autocompletion, diagnostics, and other IDE features (LSP)
+- **codelldb** (debugger) will be automatically installed via Mason (Neovim plugin) in the next section
 
 ---
 
-## Struttura della Configurazione
+## Configuration Structure
 
-Creiamo la struttura delle directory per la configurazione di Neovim:
+Let's create the directory structure for Neovim configuration:
 
 ```bash
 mkdir -p ~/.config/nvim/lua/plugins
 ```
 
-La struttura finale sarà:
+The final structure will be:
 ```
 ~/.config/nvim/
-├── init.lua                 # File principale
+├── init.lua                 # Main file
 └── lua/
     └── plugins/
-        ├── mason.lua        # Config Mason (package manager)
-        ├── cmp.lua          # Config nvim-cmp (autocompletamento)
-        ├── treesitter.lua   # Config Treesitter
-        ├── telescope.lua    # Config Telescope
-        ├── oil.lua          # Config Oil
-        ├── rustacean.lua    # Config Rustaceanvim
-        ├── gitsigns.lua     # Config Gitsigns (Git integration)
-        ├── fugitive.lua     # Config Fugitive (Git commands)
-        ├── which-key.lua    # Config Which-Key (keybinding hints)
-        ├── trouble.lua      # Config Trouble (diagnostics list)
-        ├── fidget.lua       # Config Fidget (LSP notifications)
-        ├── lualine.lua      # Config Lualine (statusline)
-        └── colorscheme.lua  # Config Gruvbox Material
+        ├── mason.lua        # Mason config (package manager)
+        ├── cmp.lua          # nvim-cmp config (autocompletion)
+        ├── treesitter.lua   # Treesitter config
+        ├── telescope.lua    # Telescope config
+        ├── oil.lua          # Oil config
+        ├── rustacean.lua    # Rustaceanvim config
+        ├── gitsigns.lua     # Gitsigns config (Git integration)
+        ├── fugitive.lua     # Fugitive config (Git commands)
+        ├── which-key.lua    # Which-Key config (keybinding hints)
+        ├── trouble.lua      # Trouble config (diagnostics list)
+        ├── fidget.lua       # Fidget config (LSP notifications)
+        ├── lualine.lua      # Lualine config (statusline)
+        └── colorscheme.lua  # Gruvbox Material config
 ```
 
 ---
 
-## Configurazione Lazy.nvim
+## Lazy.nvim Configuration
 
-Creiamo il file `~/.config/nvim/init.lua`:
+Let's create the `~/.config/nvim/init.lua` file:
 
 ```lua
 -- init.lua
--- Configurazione base di Neovim
+-- Neovim base configuration
 
--- Opzioni generali
-vim.g.mapleader = " "  -- Space come leader key
+-- General options
+vim.g.mapleader = " "  -- Space as leader key
 vim.g.maplocalleader = " "
 
--- Impostazioni UI
-vim.opt.number = true          -- Numeri di riga
-vim.opt.relativenumber = true  -- Numeri relativi
-vim.opt.mouse = 'a'            -- Abilita mouse
-vim.opt.ignorecase = true      -- Ignora case nella ricerca
-vim.opt.smartcase = true       -- Case-sensitive se maiuscole presenti
-vim.opt.hlsearch = false       -- Non evidenziare ricerche
-vim.opt.wrap = false           -- Non wrappare le righe
-vim.opt.breakindent = true     -- Mantieni indentazione quando wrapped
-vim.opt.tabstop = 4            -- Tab = 4 spazi
-vim.opt.shiftwidth = 4         -- Indentazione = 4 spazi
-vim.opt.expandtab = true       -- Usa spazi invece di tab
-vim.opt.termguicolors = true   -- Abilita colori 24-bit
+-- UI settings
+vim.opt.number = true          -- Line numbers
+vim.opt.relativenumber = true  -- Relative numbers
+vim.opt.mouse = 'a'            -- Enable mouse
+vim.opt.ignorecase = true      -- Ignore case in search
+vim.opt.smartcase = true       -- Case-sensitive if uppercase present
+vim.opt.hlsearch = false       -- Don't highlight searches
+vim.opt.wrap = false           -- Don't wrap lines
+vim.opt.breakindent = true     -- Keep indentation when wrapped
+vim.opt.tabstop = 4            -- Tab = 4 spaces
+vim.opt.shiftwidth = 4         -- Indentation = 4 spaces
+vim.opt.expandtab = true       -- Use spaces instead of tabs
+vim.opt.termguicolors = true   -- Enable 24-bit colors
 
--- Clipboard di sistema
+-- System clipboard
 vim.opt.clipboard = 'unnamedplus'
 
--- Salvataggio automatico undo
+-- Automatic undo save
 vim.opt.undofile = true
 
--- Tempo di aggiornamento ridotto
+-- Reduced update time
 vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
 
@@ -255,17 +255,17 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim con i plugin
+-- Setup lazy.nvim with plugins
 require("lazy").setup({
-  -- Importa tutti i file dalla directory plugins
+  -- Import all files from plugins directory
   { import = "plugins" },
 }, {
   checker = {
-    enabled = true,  -- Controlla automaticamente aggiornamenti
-    notify = false,  -- Non notificare
+    enabled = true,  -- Automatically check for updates
+    notify = false,  -- Don't notify
   },
   change_detection = {
-    notify = false,  -- Non notificare cambiamenti config
+    notify = false,  -- Don't notify config changes
   },
 })
 
@@ -299,7 +299,7 @@ local function open_terminal(command)
   end
 end
 
--- Keymaps generali
+-- General keymaps
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', { desc = 'Save' })
 vim.keymap.set('n', '<leader>q', '<cmd>quit<cr>', { desc = 'Quit' })
 vim.keymap.set("n", "<M-n>", "<cmd>bnext<CR>", {})
@@ -312,18 +312,18 @@ vim.keymap.set("n", "<leader>tt", function()
 end, { desc = "[T]erminal " })
 
 
--- Keymaps per diagnostics
+-- Keymaps for diagnostics
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic error' })
 vim.keymap.set("n", "<leader>xi", toggle_diagnostics, { desc = "Toggle [i]nline diagnostic" })
 ```
 
-**Spiegazione keymaps diagnostics:**
-- `<leader>e` (Space + e) mostra popup con errore/warning della riga corrente
-- `<leader>xi` (Space + xi) abilita/disabilita la visualizzazione degli errori/warning
-- `]d` salta al prossimo diagnostic (errore/warning)
-- `[d` salta al diagnostic precedente
+**Diagnostics keymaps explanation:**
+- `<leader>e` (Space + e) shows popup with error/warning of current line
+- `<leader>xi` (Space + xi) enables/disables error/warning display
+- `]d` jumps to next diagnostic (error/warning)
+- `[d` jumps to previous diagnostic
 
 ---
 
@@ -354,27 +354,27 @@ return {
     
     -- Setup Mason LSPConfig
     mason_lspconfig.setup({
-      -- Questa lista è vuota perché per Rust usiamo rustaceanvim
-      -- che gestisce rust-analyzer automaticamente
+      -- This list is empty because for Rust we use rustaceanvim
+      -- which manages rust-analyzer automatically
       ensure_installed = {},
     })
     
-    -- Setup Mason DAP - installa automaticamente codelldb
+    -- Setup Mason DAP - automatically installs codelldb
     mason_nvim_dap.setup({
       ensure_installed = { "codelldb" },
       automatic_installation = true,
     })
     
-    -- Keymap per aprire Mason
+    -- Keymap to open Mason
     vim.keymap.set('n', '<leader>m', '<cmd>Mason<cr>', { desc = 'Open Mason' })
   end,
 }
 ```
 
-**Spiegazione**:
-- Mason è un package manager per Neovim che gestisce LSP servers, DAP adapters, linters e formatters
-- `mason-nvim-dap` installa **automaticamente** codelldb al primo avvio
-- Non includiamo rust-analyzer qui perché rustaceanvim lo usa direttamente dal sistema
+**Explanation**:
+- Mason is a package manager for Neovim that handles LSP servers, DAP adapters, linters and formatters
+- `mason-nvim-dap` **automatically** installs codelldb on first startup
+- We don't include rust-analyzer here because rustaceanvim uses it directly from the system
 
 ### nvim-cmp (`~/.config/nvim/lua/plugins/cmp.lua`)
 
@@ -404,7 +404,7 @@ return {
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     
-    -- Carica snippet da friendly-snippets
+    -- Load snippets from friendly-snippets
     require("luasnip.loaders.from_vscode").lazy_load()
     
     cmp.setup({
@@ -415,15 +415,15 @@ return {
       },
       
       mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping.select_prev_item(), -- Seleziona precedente
-        ["<C-j>"] = cmp.mapping.select_next_item(), -- Seleziona successivo
+        ["<C-k>"] = cmp.mapping.select_prev_item(), -- Select previous
+        ["<C-j>"] = cmp.mapping.select_next_item(), -- Select next
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),     -- Mostra completamento
-        ["<C-e>"] = cmp.mapping.abort(),            -- Chiudi
-        ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Conferma selezione
+        ["<C-Space>"] = cmp.mapping.complete(),     -- Show completion
+        ["<C-e>"] = cmp.mapping.abort(),            -- Close
+        ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Confirm selection
         
-        -- Tab per navigare snippet
+        -- Tab to navigate snippets
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -445,19 +445,19 @@ return {
         end, { "i", "s" }),
       }),
       
-      -- Sources per autocompletamento (ordine = priorità)
+      -- Sources for autocompletion (order = priority)
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },   -- Da LSP
-        { name = "luasnip" },    -- Da snippet
-        { name = "buffer" },     -- Da buffer corrente
-        { name = "path" },       -- Da filesystem
-        { name = "nvim_lua" },   -- Da Neovim Lua API
+        { name = "nvim_lsp" },   -- From LSP
+        { name = "luasnip" },    -- From snippets
+        { name = "buffer" },     -- From current buffer
+        { name = "path" },       -- From filesystem
+        { name = "nvim_lua" },   -- From Neovim Lua API
       }),
       
-      -- Formattazione voci completamento
+      -- Completion entries formatting
       formatting = {
         format = function(entry, item)
-          -- Mostra da quale source proviene
+          -- Show which source it comes from
           item.menu = ({
             nvim_lsp = "[LSP]",
             luasnip = "[Snippet]",
@@ -473,10 +473,10 @@ return {
 }
 ```
 
-**Spiegazione**:
-- nvim-cmp fornisce autocompletamento intelligente con multiple sources
-- LuaSnip è il motore per gli snippet
-- Configurato per integrarsi perfettamente con rust-analyzer LSP
+**Explanation**:
+- nvim-cmp provides intelligent autocompletion with multiple sources
+- LuaSnip is the snippet engine
+- Configured to integrate perfectly with rust-analyzer LSP
 
 ### Gitsigns (`~/.config/nvim/lua/plugins/gitsigns.lua`)
 
@@ -505,7 +505,7 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
         
-        -- Navigazione tra hunks
+        -- Navigate between hunks
         map('n', ']c', function()
           if vim.wo.diff then return ']c' end
           vim.schedule(function() gs.next_hunk() end)
@@ -539,11 +539,11 @@ return {
 }
 ```
 
-**Spiegazione**:
-- Mostra modifiche Git nella sign column (barra a sinistra)
-- Navigazione rapida tra modifiche con `]c` e `[c`
-- Stage/reset hunks direttamente da Neovim
-- Preview delle modifiche inline
+**Explanation**:
+- Shows Git changes in the sign column (left bar)
+- Quick navigation between changes with `]c` and `[c`
+- Stage/reset hunks directly from Neovim
+- Inline preview of changes
 
 ### Fugitive (`~/.config/nvim/lua/plugins/fugitive.lua`)
 
@@ -562,10 +562,10 @@ return {
 }
 ```
 
-**Spiegazione**:
-- Interfaccia completa a Git direttamente da Neovim
-- Comandi Git nativi (commit, push, pull, blame, diff)
-- Si integra perfettamente con Gitsigns
+**Explanation**:
+- Complete Git interface directly from Neovim
+- Native Git commands (commit, push, pull, blame, diff)
+- Integrates perfectly with Gitsigns
 
 ### Which-Key (`~/.config/nvim/lua/plugins/which-key.lua`)
 
@@ -587,7 +587,7 @@ return {
       },
     })
     
-    -- Registra gruppi di keybindings
+    -- Register keybinding groups
     wk.add({
       { "<leader>f", group = "find" },
       { "<leader>r", group = "rust" },
@@ -600,9 +600,9 @@ return {
 }
 ```
 
-**Spiegazione**:
-- Mostra automaticamente popup con keybindings disponibili
-- Aiuta a scoprire e ricordare i comandi
+**Explanation**:
+- Automatically shows popup with available keybindings
+- Helps discover and remember commands
 
 ### Trouble (`~/.config/nvim/lua/plugins/trouble.lua`)
 
@@ -620,15 +620,15 @@ return {
     { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
   },
   opts = {
-    -- Configurazione opzionale
+    -- Optional configuration
   },
 }
 ```
 
-**Spiegazione**:
-- Mostra lista organizzata di tutti gli errori/warning del progetto
-- Visualizzazione migliore della quickfix list di default
-- Integrazione con LSP per diagnostics, references, definitions
+**Explanation**:
+- Shows organized list of all project errors/warnings
+- Better visualization than default quickfix list
+- LSP integration for diagnostics, references, definitions
 
 ### Fidget (`~/.config/nvim/lua/plugins/fidget.lua`)
 
@@ -638,7 +638,7 @@ return {
   opts = {
     notification = {
       window = {
-        winblend = 0,  -- Trasparenza finestra (0-100)
+        winblend = 0,  -- Window transparency (0-100)
         border = "none",
       },
     },
@@ -651,10 +651,10 @@ return {
 }
 ```
 
-**Spiegazione**:
-- Mostra notifiche LSP in basso a destra (es. "rust-analyzer: indexing...")
-- Progress indicator quando rust-analyzer sta analizzando il codice
-- Interfaccia pulita e non invasiva
+**Explanation**:
+- Shows LSP notifications in bottom right (e.g., "rust-analyzer: indexing...")
+- Progress indicator when rust-analyzer is analyzing code
+- Clean and non-invasive interface
 
 ### Treesitter (`~/.config/nvim/lua/plugins/treesitter.lua`)
 
@@ -664,11 +664,11 @@ return {
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",  -- Text objects avanzati
+    "nvim-treesitter/nvim-treesitter-textobjects",  -- Advanced text objects
   },
   config = function()
     require("nvim-treesitter.configs").setup({
-      -- Linguaggi da installare automaticamente
+      -- Languages to install automatically
       ensure_installed = {
         "rust",
         "toml",
@@ -681,10 +681,10 @@ return {
         "yaml",
       },
       
-      -- Installa parser in modo sincrono
+      -- Install parsers synchronously
       sync_install = false,
       
-      -- Installazione automatica parser mancanti
+      -- Automatic installation of missing parsers
       auto_install = true,
       
       -- Syntax highlighting
@@ -693,12 +693,12 @@ return {
         additional_vim_regex_highlighting = false,
       },
       
-      -- Indentazione basata su treesitter
+      -- Treesitter-based indentation
       indent = {
         enable = true,
       },
       
-      -- Selezione incrementale
+      -- Incremental selection
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -737,7 +737,7 @@ return {
         "nvim-lua/plenary.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
-            build = "make",  -- Compilazione per performance migliori
+            build = "make",  -- Compilation for better performance
         },
     },
     config = function()
@@ -762,12 +762,12 @@ return {
             },
             pickers = {
                 find_files = {
-                    hidden = true,  -- Mostra file nascosti
+                    hidden = true,  -- Show hidden files
                 },
             },
         })
 
-        -- Carica estensione fzf
+        -- Load fzf extension
         telescope.load_extension("fzf")
 
         -- Keymaps
@@ -790,7 +790,7 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     require("oil").setup({
-      -- Colonne da mostrare
+      -- Columns to show
       columns = {
         "icon",
         "permissions",
@@ -798,7 +798,7 @@ return {
         "mtime",
       },
       
-      -- Keymaps dentro oil
+      -- Keymaps inside oil
       keymaps = {
         ["g?"] = "actions.show_help",
         ["<CR>"] = "actions.select",
@@ -817,13 +817,13 @@ return {
         ["g."] = "actions.toggle_hidden",
       },
       
-      -- Mostra file nascosti di default
+      -- Show hidden files by default
       view_options = {
         show_hidden = true,
       },
     })
     
-    -- Apri oil con -
+    -- Open oil with -
     vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
   end,
 }
@@ -835,13 +835,13 @@ return {
 return {
   "mrcjkb/rustaceanvim",
   version = "^5",
-  ft = { "rust" },  -- Carica solo per file Rust
+  ft = { "rust" },  -- Load only for Rust files
   config = function()
     vim.g.rustaceanvim = {
       -- LSP settings
       server = {
         on_attach = function(client, bufnr)
-          -- Keymaps per LSP
+          -- LSP keymaps
           local opts = { buffer = bufnr, noremap = true, silent = true }
           
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -869,9 +869,9 @@ return {
                 enable = true,
               },
             },
-            -- Usa 'check' invece di 'checkOnSave'
+            -- Use 'check' instead of 'checkOnSave'
             check = {
-              command = "clippy",  -- Usa clippy invece di check
+              command = "clippy",  -- Use clippy instead of check
             },
             procMacro = {
               enable = true,
@@ -900,13 +900,13 @@ return {
     }
   end,
   dependencies = {
-    -- Plugin per debugging
+    -- Debugging plugin
     {
       "mfussenegger/nvim-dap",
       config = function()
         local dap = require("dap")
         
-        -- Keymaps per debugging
+        -- Debugging keymaps
         vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
         vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'Debug: Step Over' })
         vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -915,7 +915,7 @@ return {
       end,
     },
     
-    -- UI per il debugger
+    -- Debugger UI
     {
       "rcarriga/nvim-dap-ui",
       dependencies = { "nvim-neotest/nvim-nio" },
@@ -924,7 +924,7 @@ return {
         
         dapui.setup()
         
-        -- Apri/chiudi automaticamente UI
+        -- Automatically open/close UI
         dap.listeners.after.event_initialized["dapui_config"] = function()
           dapui.open()
         end
@@ -954,7 +954,7 @@ return {
         theme = "gruvbox-material",
         component_separators = { left = '|', right = '|' },
         section_separators = { left = '', right = '' },
-        globalstatus = true,  -- Una statusline per tutte le finestre
+        globalstatus = true,  -- One statusline for all windows
       },
       sections = {
         lualine_a = { 'mode' },
@@ -962,7 +962,7 @@ return {
         lualine_c = { 
           {
             'filename',
-            path = 1,  -- 0 = solo nome, 1 = relativo, 2 = assoluto
+            path = 1,  -- 0 = name only, 1 = relative, 2 = absolute
           }
         },
         lualine_x = {
@@ -997,118 +997,118 @@ return {
 ```lua
 return {
   "sainnhe/gruvbox-material",
-  lazy = false,     -- Carica immediatamente
-  priority = 1000,  -- Carica prima di altri plugin
+  lazy = false,     -- Load immediately
+  priority = 1000,  -- Load before other plugins
   config = function()
-    -- Configura il colorscheme
+    -- Configure the colorscheme
     vim.g.gruvbox_material_background = 'medium'  -- 'soft', 'medium', 'hard'
     vim.g.gruvbox_material_better_performance = 1
     vim.g.gruvbox_material_enable_italic = 1
     
-    -- Applica il colorscheme
+    -- Apply the colorscheme
     vim.cmd.colorscheme('gruvbox-material')
   end,
 }
 ```
 
-## Test e Verifica
+## Testing and Verification
 
-### Prima apertura di Neovim
+### First Neovim launch
 
 ```bash
 nvim
 ```
 
-Al primo avvio, Lazy.nvim installerà automaticamente tutti i plugin. Vedrai una finestra con il progresso dell'installazione. Mason installerà anche automaticamente codelldb in background.
+On first startup, Lazy.nvim will automatically install all plugins. You'll see a window with the installation progress. Mason will also install codelldb automatically in the background.
 
-### Verifica installazione plugin
+### Verify plugin installation
 
-Dentro Neovim, digita:
+Inside Neovim, type:
 ```vim
 :Lazy
 ```
 
-Dovresti vedere tutti i plugin installati con segno di spunta verde.
+You should see all plugins installed with a green checkmark.
 
-Per verificare che codelldb sia stato installato:
+To verify that codelldb was installed:
 ```vim
 :Mason
 ```
 
-Dovresti vedere `codelldb` con il segno ✓ (installato).
+You should see `codelldb` with the ✓ (installed) sign.
 
-### Verifica Treesitter
+### Verify Treesitter
 
 ```vim
 :checkhealth nvim-treesitter
 ```
 
-### Test con progetto Rust
+### Test with Rust project
 
-Crea un progetto di test:
+Create a test project:
 ```bash
 cargo new test_project
 cd test_project
 nvim src/main.rs
 ```
 
-Dovresti vedere:
-- ✅ Syntax highlighting colorato
-- ✅ Autocompletamento (premi `Ctrl+Space`)
-- ✅ Diagnostica inline (errori/warning sottolineati)
-- ✅ Hover documentation (premi `K` su una funzione)
+You should see:
+- ✅ Colored syntax highlighting
+- ✅ Autocompletion (press `Ctrl+Space`)
+- ✅ Inline diagnostics (errors/warnings underlined)
+- ✅ Hover documentation (press `K` on a function)
 
 ### Test debugging
 
-Nel file `src/main.rs`, aggiungi:
+In the `src/main.rs` file, add:
 ```rust
 fn main() {
     let x = 5;
     let y = 10;
-    println!("Sum: {}", x + y);  // Metti breakpoint qui
+    println!("Sum: {}", x + y);  // Put breakpoint here
 }
 ```
 
-- Premi `<leader>b` sulla riga del println per aggiungere breakpoint
-- Premi `<leader>rd` per vedere opzioni di debug
-- Seleziona "Debug" e premi Enter
-- Usa `F10` per step over, `F11` per step into
+- Press `<leader>b` on the println line to add a breakpoint
+- Press `<leader>rd` to see debug options
+- Select "Debug" and press Enter
+- Use `F10` for step over, `F11` for step into
 
 ---
 
-## Comandi Utili
+## Useful Commands
 
 ### Plugin Management (Lazy.nvim)
-- `:Lazy` - Apri interfaccia Lazy
-- `:Lazy update` - Aggiorna tutti i plugin
-- `:Lazy sync` - Installa/aggiorna/rimuovi plugin
+- `:Lazy` - Open Lazy interface
+- `:Lazy update` - Update all plugins
+- `:Lazy sync` - Install/update/remove plugins
 
 ### Mason (Package Manager)
-- `:Mason` - Apri interfaccia Mason
-- `:MasonInstall <package>` - Installa un package
-- `:MasonUninstall <package>` - Rimuovi un package
-- `<leader>m` - Apri Mason
+- `:Mason` - Open Mason interface
+- `:MasonInstall <package>` - Install a package
+- `:MasonUninstall <package>` - Remove a package
+- `<leader>m` - Open Mason
 
-### Autocompletamento (nvim-cmp)
-- `Ctrl+Space` - Trigger completamento manualmente
-- `Ctrl+j/k` - Naviga suggerimenti
-- `Tab/Shift+Tab` - Naviga snippet
-- `Enter` - Conferma selezione
-- `Ctrl+e` - Chiudi menu completamento
+### Autocompletion (nvim-cmp)
+- `Ctrl+Space` - Trigger completion manually
+- `Ctrl+j/k` - Navigate suggestions
+- `Tab/Shift+Tab` - Navigate snippets
+- `Enter` - Confirm selection
+- `Ctrl+e` - Close completion menu
 
 ### Telescope
 - `<leader>ff` - Find files
-- `<leader>fg` - Live grep (ricerca in tutti i file)
-- `<leader>fb` - Lista buffer aperti
-- `<leader>fr` - Trova riferimenti LSP
-- `<leader>fs` - Simboli del documento
+- `<leader>fg` - Live grep (search in all files)
+- `<leader>fb` - List open buffers
+- `<leader>fr` - Find LSP references
+- `<leader>fs` - Document symbols
 
 ### Oil.nvim
-- `-` - Apri directory corrente
-- `<CR>` - Entra in directory/apri file
-- `<C-s>` - Apri in split orizzontale
-- `<C-v>` - Apri in split verticale
-- `g.` - Toggle file nascosti
+- `-` - Open current directory
+- `<CR>` - Enter directory/open file
+- `<C-s>` - Open in horizontal split
+- `<C-v>` - Open in vertical split
+- `g.` - Toggle hidden files
 
 ### LSP
 - `gd` - Go to definition
@@ -1119,13 +1119,13 @@ fn main() {
 - `<leader>f` - Format document
 
 ### Diagnostics
-- `<leader>e` - Show diagnostic popup (errore/warning riga corrente)
+- `<leader>e` - Show diagnostic popup (error/warning on current line)
 - `]d` - Next diagnostic
 - `[d` - Previous diagnostic
 
 ### Rust Specific
-- `<leader>rr` - Rust runnables (esegui main, esempi, etc.)
-- `<leader>rt` - Rust testables (esegui test)
+- `<leader>rr` - Rust runnables (run main, examples, etc.)
+- `<leader>rt` - Rust testables (run tests)
 - `<leader>rd` - Rust debuggables (debug)
 - `<leader>re` - Expand macro
 
@@ -1156,7 +1156,7 @@ fn main() {
 - `<leader>gd` - Git diff split
 
 ### Which-Key
-- `<leader>` - Mostra tutti i keybindings del leader
+- `<leader>` - Show all leader keybindings
 
 ### Trouble (Diagnostics)
 - `<leader>xx` - Toggle diagnostics
@@ -1166,17 +1166,17 @@ fn main() {
 - `<leader>xQ` - Toggle quickfix
 
 ### Treesitter
-- `:TSUpdate` - Aggiorna parser
-- `:TSInstall <lang>` - Installa parser per linguaggio
-- `<CR>` in visual mode - Selezione incrementale
+- `:TSUpdate` - Update parsers
+- `:TSInstall <lang>` - Install parser for language
+- `<CR>` in visual mode - Incremental selection
 
 ---
 
 ## Troubleshooting
 
-### Problema: Treesitter non compila parser
+### Problem: Treesitter doesn't compile parsers
 ```bash
-# Installa dipendenze C
+# Install C dependencies
 sudo apt install -y gcc g++
 
 # In Neovim
@@ -1184,19 +1184,19 @@ sudo apt install -y gcc g++
 ```
 
 ### Warning: tree-sitter executable not found
-Questo è un warning comune e **completamente normale**:
+This is a common and **completely normal** warning:
 
 ```
 ⚠️ WARNING tree-sitter executable not found (parser generator, only needed for :TSInstallFromGrammar)
 ```
 
-**Per eliminare il warning (opzionale):**
+**To eliminate the warning (optional):**
 ```bash
-# Installa tree-sitter CLI
+# Install tree-sitter CLI
 cargo install tree-sitter-cli
 ```
 
-Dopo l'installazione, riavvia Neovim e il warning sparirà. Ma ripeto: è puramente estetico, la funzionalità è già completa!
+After installation, restart Neovim and the warning will disappear. But I repeat: it's purely cosmetic, the functionality is already complete!
 
 ### Warning: mini.icons is not installed
 ```
@@ -1204,52 +1204,56 @@ Dopo l'installazione, riavvia Neovim e il warning sparirà. Ma ripeto: è purame
 ✅ OK nvim-web-devicons is installed
 ```
 
-**Cosa significa:**
-- which-key può usare `mini.icons` OPPURE `nvim-web-devicons` per le icone
-- La nostra config usa `nvim-web-devicons` (già installato con Oil e Trouble)
-- Il warning è solo informativo, le icone funzionano perfettamente
+**What it means:**
+- which-key can use `mini.icons` OR `nvim-web-devicons` for icons
+- Our config uses `nvim-web-devicons` (already installed with Oil and Trouble)
+- The warning is only informational, icons work perfectly
 
-### Problema: Telescope non trova file
+### Problem: Telescope doesn't find files
 ```bash
-# Verifica ripgrep e fd
+# Verify ripgrep and fd
 which rg
 which fd
 
-# Ubuntu: Se mancano, reinstalla
+# Ubuntu: If missing, reinstall
 sudo apt install ripgrep fd-find
 
-# macOS: Se mancano, reinstalla
+# macOS: If missing, reinstall
 brew install ripgrep fd
 ```
 
-## Prossimi Passi e Personalizzazioni
+## Next Steps and Customizations
 
-Ora hai un IDE Rust **completo e professionale**! 🎉
+Now you have a **complete and professional** Rust IDE! 🎉
 
-**Cosa hai ottenuto:**
-- ✅ Autocompletamento intelligente con nvim-cmp
-- ✅ Integrazione Git completa (Gitsigns + Fugitive)
-- ✅ Diagnostics organizzate (Trouble)
-- ✅ Notifiche LSP eleganti (Fidget)
-- ✅ Guida ai keybindings (Which-Key)
-- ✅ Debugging visuale completo
-- ✅ Syntax highlighting avanzato
-- ✅ File explorer moderno (Oil)
-- ✅ Ricerca potente (Telescope)
-- ✅ Statusline informativa (Lualine)
+**What you've achieved:**
+- ✅ Intelligent autocompletion with nvim-cmp
+- ✅ Complete Git integration (Gitsigns + Fugitive)
+- ✅ Organized diagnostics (Trouble)
+- ✅ Elegant LSP notifications (Fidget)
+- ✅ Keybinding guide (Which-Key)
+- ✅ Complete visual debugging
+- ✅ Advanced syntax highlighting
+- ✅ Modern file explorer (Oil)
+- ✅ Powerful search (Telescope)
+- ✅ Informative statusline (Lualine)
 
-**Considera di aggiungere (opzionale):**
+**Consider adding (optional):**
 
-1. **toggleterm.nvim** - Terminale integrato e toggleable
-2. **nvim-autopairs** - Chiusura automatica di parentesi/virgolette
-3. **Comment.nvim** - Commenta codice facilmente con `gc`
-4. **indent-blankline.nvim** - Mostra guide di indentazione
-5. **nvim-colorizer.lua** - Evidenzia codici colore nel codice
-6. **rust-tools.nvim** - Tools extra per Rust (hover actions, ecc.)
+1. **toggleterm.nvim** - Integrated and toggleable terminal
+2. **nvim-autopairs** - Automatic closure of parentheses/quotes
+3. **Comment.nvim** - Comment code easily with `gc`
+4. **indent-blankline.nvim** - Show indentation guides
+5. **nvim-colorizer.lua** - Highlight color codes in code
+6. **rust-tools.nvim** - Extra Rust tools (hover actions, etc.)
 
-**Risorse utili:**
-- Documentazione Neovim: `:help` o https://neovim.io/doc/
+**Useful resources:**
+- Neovim documentation: `:help` or https://neovim.io/doc/
 - rust-analyzer docs: https://rust-analyzer.github.io/
 - Awesome Neovim: https://github.com/rockerBOO/awesome-neovim
 
-Buon coding! 🦀
+Happy coding! 🦀
+
+---
+
+**Note:** This article was translated using AI assistance.

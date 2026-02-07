@@ -4,7 +4,7 @@ date = 2026-01-18
 description = "L'intelligenza artificiale sta rivoluzionando il modo in cui scriviamo codice, ma siamo sicuri che sia sempre un cambiamento positivo? In questo articolo analizzo il delicato equilibrio tra l'uso produttivo degli strumenti AI e il rischio di creare una generazione di programmatori dipendenti dalla tecnologia. Dalla questione delle licenze open source ai principi per un uso responsabile: una guida pratica per sfruttare l'IA senza perdere le competenze fondamentali."
 
 [taxonomies]
-tags = ["ia", "programmazione"]
+tags = ["ia", "coding"]
 +++
 
 Negli ultimi anni abbiamo assistito all'esplosione di strumenti di intelligenza artificiale per lo sviluppo software: GitHub Copilot, ChatGPT, Claude e tanti altri. Ma mentre questi strumenti diventano sempre più pervasivi, una domanda diventa urgente: li stiamo usando nel modo giusto? O stiamo crescendo una generazione di programmatori che sanno usare l'IA ma non sanno programmare?

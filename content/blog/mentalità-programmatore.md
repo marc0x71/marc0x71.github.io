@@ -4,7 +4,7 @@ date = 2026-02-07
 description = "Essere programmatore non significa ricordare ogni API o formula. È avere una curiosità insaziabile, una mente che elabora sempre in background, e l'incapacità di accettare che qualcosa 'funzioni e basta'. È masochismo costruttivo"
 
 [taxonomies]
-tags = ["pensieri", "programmazione"]
+tags = ["thoughts", "programming"]
 
 [extra]
 comments = true

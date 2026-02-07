@@ -4,7 +4,7 @@ date = 2026-01-28
 description = "Ogni cargo add è un patto: comodità oggi, caos domani. Quando una delle 202 dipendenze transitive esplode venerdì alle 15, capisci il vero costo. Perché il problema non è la dipendenza, sei tu che non sai cosa hai importato"
 
 [taxonomies]
-tags = ["ia", "programmazione"]
+tags = ["programmazione"]
 +++
 Ogni volta che scrivo `cargo add qualcosa`, mi piace pensare che sto semplicemente aggiungendo una funzionalità al mio progetto. È comodo, è veloce, è moderno. Ma se sono onesto con me stesso, quello che sto davvero facendo è firmare un contratto trilaterale: tra me, una libreria scritta da uno sconosciuto su internet, e l'utente finale che si fida ciecamente del mio software.
 

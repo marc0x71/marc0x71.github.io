@@ -18,13 +18,25 @@
 <body>
     <div class="container">
         <header>
-            <a href="{{ config.base_url }}" class="site-title">{{ config.title }}</a>
-          <nav>
-              <a href="{{ get_url(path='/', trailing_slash=true) }}">home</a>
-              <a href="{{ get_url(path='blog/', trailing_slash=true) }}">blog</a>
-              <a href="{{ get_url(path='about/', trailing_slash=true) }}">about</a>
-              <a href="{{ get_url(path='tags/', trailing_slash=true) }}">tags</a>
-          </nav>
+            {% set lang_prefix = "" %}
+            {% if lang == "en" %}
+                {% set lang_prefix = "/en" %}
+            {% endif %}
+            
+            <a href="{{ lang_prefix }}/" class="site-title">{{ config.title }}</a>
+            <nav>
+                <a href="{{ lang_prefix }}/">home</a>
+                <a href="{{ lang_prefix }}/blog/">blog</a>
+                <a href="{{ lang_prefix }}/about/">about</a>
+                <a href="{{ lang_prefix }}/tags/">tags</a>
+                
+                <!-- Language switcher -->
+                {% if lang == "it" %}
+                <a href="/en/">🇬🇧 EN</a>
+                {% else %}
+                <a href="/">🇮🇹 IT</a>
+                {% endif %}
+            </nav>
         </header>
 
         <main>
@@ -37,7 +49,7 @@
                 &nbsp;|&nbsp;
                 Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a>
                 &nbsp;|&nbsp;
-                <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}" title="RSS Feed">RSS 📡</a>
+                <a href="{{ lang_prefix }}/atom.xml" title="{% if lang == 'it' %}Iscriviti al feed RSS{% else %}Subscribe to RSS feed{% endif %}">RSS 📡</a>
             </p>
         </footer>
     </div>

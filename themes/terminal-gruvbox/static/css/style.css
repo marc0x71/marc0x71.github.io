@@ -80,7 +80,7 @@ header {
 
 .site-title {
   font-size: 1.5rem;
-  color: var(--accent);
+  color: var(--blue);
   text-decoration: none;
   display: inline-block;
 }

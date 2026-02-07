@@ -3,16 +3,28 @@
 {% block content %}
 <!-- Intro homepage -->
 <section style="margin-bottom: 3rem;">
-    <h1 style="color: var(--accent); margin-bottom: 1rem;">Ciao! 👋</h1>
+    <h1 style="color: var(--accent); margin-bottom: 1rem;">
+        {% if lang == "it" %}Ciao! 👋{% else %}Hi! 👋{% endif %}
+    </h1>
     <p>
+    {% if lang == "it" %}
     Benvenuto nel mio blog dove scrivo di <strong>Linux</strong>🐧, Programmazione <strong>Rust</strong>🦀, <strong>Neovim</strong> e <strong>Git</strong>.
+    {% else %}
+    Welcome to my blog where I write about <strong>Linux</strong>🐧, <strong>Rust</strong>🦀 coding, <strong>Neovim</strong> and <strong>Git</strong>.
+    {% endif %}
     </p>
 </section>
 
 <!-- Ultimi post dal blog -->
-{% set blog_section = get_section(path="blog/_index.md") %}
+{% if lang == "en" %}
+    {% set blog_section = get_section(path="blog/_index.en.md") %}
+{% else %}
+    {% set blog_section = get_section(path="blog/_index.md") %}
+{% endif %}
 
-<h2 style="margin-bottom: 1.5rem;">Ultimi Post</h2>
+<h2 style="margin-bottom: 1.5rem;">
+    {% if lang == "it" %}Ultimi Post{% else %}Latest Posts{% endif %}
+</h2>
 
 <div class="post-list">
     {% for page in blog_section.pages | slice(end=5) %}
@@ -43,12 +55,16 @@
     {% endfor %}
 </div>
 
-<!-- Link per vedere tutti i post -->
 {% if blog_section.pages | length > 5 %}
 <div style="text-align: center; margin-top: 2rem;">
     <a href="{{ blog_section.permalink }}" class="tag" style="font-size: 1rem;">
+        {% if lang == "it" %}
         Vedi tutti i {{ blog_section.pages | length }} post →
+        {% else %}
+        View all {{ blog_section.pages | length }} posts →
+        {% endif %}
     </a>
 </div>
 {% endif %}
+
 {% endblock %}
