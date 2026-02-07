@@ -1,6 +1,6 @@
 +++
 title = "Perché imparare a programmare in Rust 🦀?"
-date = 2024-12-07
+date = 2024-06-24
 description = "Analizziamo cosa spinge molti programmatori a scegliere questo linguaggio e cosa offre rispetto agli altri"
 
 [taxonomies]
