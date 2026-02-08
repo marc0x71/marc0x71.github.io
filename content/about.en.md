@@ -61,6 +61,17 @@ Welcome to my digital space. I hope you enjoy being here as much as I enjoy writ
 
 ---
 
+## AI Usage Policy
+
+Some content on this blog may be created with AI assistance (ChatGPT, Claude for example) for:
+- Grammar and clarity improvements
+- Translation between languages
+- Brainstorming and outlining
+
+All opinions and technical insights are my own. AI is used as a tool, not as the author.
+
+---
+
 ## Where to Find Me
 
 - 📺 [YouTube Channel](https://www.youtube.com/@IlCodicediMarco) - Complete Rust course + tutorials on Vim and Git

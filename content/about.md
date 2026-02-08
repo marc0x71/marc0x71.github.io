@@ -61,6 +61,17 @@ Benvenuto nel mio spazio digitale. Spero ti piaccia stare qui quanto a me piace 
 
 ---
 
+## Nota sull'uso dell'AI
+
+Alcuni contenuti di questo blog sono stati scritti con l'assistenza di strumenti AI (come ChatGPT, Claude) per:
+- Migliorare la chiarezza
+- Correggere errori
+- Tradurre contenuti
+
+Tutti i post riflettono le mie opinioni personali e sono stati revisionati da me.
+
+---
+
 ## Dove trovarmi
 
 - 📺 [Canale YouTube](https://www.youtube.com/@IlCodicediMarco) - Corso completo di Rust + tutorial su Vim e Git

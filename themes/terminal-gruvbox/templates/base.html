@@ -47,9 +47,15 @@
             <p>
                 &copy; {{ now() | date(format="%Y") }} {{ config.title }}
                 &nbsp;|&nbsp;
-                Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a>
+                <a href="https://github.com/marc0x71/marc0x71.github.io/blob/main/LICENSE">Code: MIT</a>
                 &nbsp;|&nbsp;
-                <a href="{{ lang_prefix }}/atom.xml" title="{% if lang == 'it' %}Iscriviti al feed RSS{% else %}Subscribe to RSS feed{% endif %}">RSS 📡</a>
+                <a href="https://creativecommons.org/licenses/by/4.0/">Content: CC BY 4.0</a>
+                &nbsp;|&nbsp;
+                Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a>
+                {% if lang == "it" %}
+                &nbsp;|&nbsp;
+                <a href="/atom.xml" title="Iscriviti al feed RSS">RSS 📡</a>
+                {% endif %}
             </p>
         </footer>
     </div>
