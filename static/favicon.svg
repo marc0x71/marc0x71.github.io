@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="2000" height="2000"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="2000" height="2000"><svg width="2000" height="2000" viewBox="0 0 529.16665 529.16666" version="1.1" id="svg1" inkscape:version="1.4.2 (ebf0e940, 2025-05-08)" sodipodi:docname="logo.svg" inkscape:export-filename="logo.png" inkscape:export-xdpi="96" inkscape:export-ydpi="96" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview id="namedview1" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" inkscape:document-units="mm" showgrid="true" inkscape:zoom="0.70710678" inkscape:cx="1275.6206" inkscape:cy="959.5439" inkscape:window-width="2992" inkscape:window-height="1936" inkscape:window-x="1520" inkscape:window-y="25" inkscape:window-maximized="0" inkscape:current-layer="layer1" inkscape:export-bgcolor="#ccffe3ff">
+    <inkscape:grid id="grid1" units="mm" originx="0.16743203" originy="0.00025521038" spacingx="0.99999998" spacingy="1" empcolor="#0099e5" empopacity="0.30196078" color="#0099e5" opacity="0.14901961" empspacing="5" enabled="true" visible="true"></inkscape:grid>
+  </sodipodi:namedview>
+  <defs id="defs1">
+    <linearGradient id="linearGradient5">
+      <stop style="stop-color:#fd940d;stop-opacity:1;" offset="0" id="stop8"></stop>
+      <stop style="stop-color:#00b6f3;stop-opacity:0.99583334;" offset="1" id="stop9"></stop>
+    </linearGradient>
+    <inkscape:path-effect effect="fillet_chamfer" id="path-effect8" is_visible="true" lpeversion="1" nodesatellites_param="F,0,0,1,0,1.3229166,0,1 @ F,0,0,1,0,1.3229166,0,1 @ F,0,0,1,0,1.3229166,0,1" radius="5" unit="px" method="auto" mode="F" chamfer_steps="1" flexible="false" use_knot_distance="true" apply_no_radius="true" apply_with_radius="true" only_selected="false" hide_knots="false"></inkscape:path-effect>
+    <linearGradient id="linearGradient5-1">
+      <stop style="stop-color:#00b6f3;stop-opacity:0.99583334;" offset="0" id="stop7"></stop>
+      <stop style="stop-color:#fd940d;stop-opacity:1;" offset="1" id="stop6"></stop>
+    </linearGradient>
+    <inkscape:path-effect effect="fillet_chamfer" id="path-effect1" is_visible="true" lpeversion="1" nodesatellites_param="F,0,0,1,0,1.3229166,0,1 @ F,0,0,1,0,1.3229166,0,1 @ F,0,0,1,0,1.3229166,0,1" radius="5" unit="px" method="auto" mode="F" chamfer_steps="1" flexible="false" use_knot_distance="true" apply_no_radius="true" apply_with_radius="true" only_selected="false" hide_knots="false"></inkscape:path-effect>
+  </defs>
+  <g inkscape:label="Livello 1" inkscape:groupmode="layer" id="layer1" transform="translate(0.16743202,2.5521039e-4)">
+    <g id="g28" transform="matrix(0.71989467,0,0,0.71989467,73.952322,105.67045)">
+      <path d="m 264.57093,190.20751 243.07302,208.89784 a 74.111964,63.692045 0 0 1 21.64209,42.38346 h 0.0243 V 26.382886 A 30.698183,26.38211 0 0 0 500.02943,0.02790527 30.698183,26.38211 0 0 0 476.90526,7.7266602 Z" style="opacity:1;fill:#ffb62a;stroke-width:1.04835;stroke-opacity:0.185252" id="path20"></path>
+      <path style="opacity:1;fill:#6c4b80;stroke-width:1.04835;stroke-opacity:0.185252" d="M 264.57093,190.20751 21.498946,399.10484 A 74.111962,63.692044 0 0 0 -0.14366048,441.48881 H 529.28604 a 74.111964,63.692045 0 0 0 -21.64209,-42.38346 z" id="path25"></path>
+      <path d="m 29.112438,0.027904 a 30.698181,26.38211 0 0 0 -29.27987,26.35498 V 441.48881 h 0.02377 a 74.111962,63.692044 0 0 1 21.64261,-42.38398 L 264.57093,190.20751 52.237638,7.727176 a 30.698181,26.38211 0 0 0 -23.1252,-7.699272 z" style="opacity:1;fill:#b129ff;stroke-width:1.04835;stroke-opacity:0.185252" id="path26"></path>
+    </g>
+  </g>
+</svg></svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>

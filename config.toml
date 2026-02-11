@@ -1,7 +1,7 @@
 # config.toml
 base_url = "https://marc0x71.github.io"
 title = "~/il-codice-di-marco"
-description = "Blog su Linux, Programmazione Rust, Neovim e Git"
+description = "Benvenuto nel mio blog dove scrivo di Linux🐧, Programmazione Rust🦀, Neovim e Git."
 
 theme = "terminal-gruvbox"
 
@@ -15,6 +15,8 @@ taxonomies = [
 ]
 
 default_language = "it"
+
+generate_robots_txt = true
 
 [languages.en]
 title = "~/il-codice-di-marco"
