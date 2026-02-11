@@ -1,6 +1,6 @@
 +++
 title = "Rust, C, and C++: Beyond the Language Wars"
-date = 2026-02-08
+date = 2026-02-11
 description = "There's a genre of content that populates the tech web with an almost _liturgical_ regularity: the comparison between programming languages. 'X vs Y: which to choose?', 'Why I abandoned X for Y', 'X is dead, long live Y'. Titles crafted to generate reactions, heated comments, outraged shares. And it works. It works incredibly well. But let's pause for a moment to ask ourselves: who really benefits from this narrative? Certainly not developers, who find themselves trapped in sterile debates where professional identity merges with tool choice. Not companies, which need pragmatic decisions based on real context and constraints. Not the growth of the tech community as a whole."
 
 # draft=true
