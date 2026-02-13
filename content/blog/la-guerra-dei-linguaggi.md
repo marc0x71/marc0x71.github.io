@@ -1,7 +1,7 @@
 +++
 title = "Rust, C e C++: oltre la guerra dei linguaggi"
 date = 2026-02-11
-description = "C'è un genere di contenuto che popola il web tecnologico con una regolarità quasi _liturgica_: il confronto tra linguaggi di programmazione. 'X vs Y: quale scegliere?', 'Perché ho abbandonato X per Y', 'X è morto, lunga vita a Y'. Titoli costruiti per generare reazioni, commenti infuocati, condivisioni indignate. E funziona. Funziona benissimo. Ma fermiamoci un momento a chiederci: a chi giova davvero questa narrazione? Non certo agli sviluppatori, che si ritrovano intrappolati in dibattiti sterili dove l'identità professionale si fonde con la scelta dello strumento. Non alle aziende, che hanno bisogno di decisioni pragmatiche basate su contesto e vincoli reali. Non alla crescita della comunità tech nel suo complesso."
+description = "C'è un genere di contenuto che popola il web tecnologico con una regolarità quasi liturgica: il confronto tra linguaggi di programmazione. 'X vs Y: quale scegliere?', 'Perché ho abbandonato X per Y', 'X è morto, lunga vita a Y'. Titoli costruiti per generare reazioni, commenti infuocati, condivisioni indignate. E funziona. Funziona benissimo. Ma fermiamoci un momento a chiederci: a chi giova davvero questa narrazione? Non certo agli sviluppatori, che si ritrovano intrappolati in dibattiti sterili dove l'identità professionale si fonde con la scelta dello strumento. Non alle aziende, che hanno bisogno di decisioni pragmatiche basate su contesto e vincoli reali. Non alla crescita della comunità tech nel suo complesso."
 
 # draft=true
 [taxonomies]
