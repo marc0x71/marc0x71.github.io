@@ -36,7 +36,9 @@
     <meta name="fediverse:creator" content="@marcobollero@mastodon.uno">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="{{ config.base_url }}">
+    {% block canonical %}
+    <link rel="canonical" href="{{ config.base_url }}{{ current_path | default(value='/') }}">
+    {% endblock canonical %}
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ get_url(path='css/style.css', trailing_slash=false) }}">
