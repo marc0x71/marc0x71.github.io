@@ -97,16 +97,10 @@
     </div>
     
     <!-- GoatCounter Analytics -->
+    {% if config.base_url is containing("github.io") %}
     <script data-goatcounter="https://marc0x71.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
-    
-    <script>
-      // Non tracciare in localhost
-      if (window.location.hostname === 'localhost' || 
-          window.location.hostname === '127.0.0.1') {
-        window.goatcounter = {no_onload: true};
-      }
-    </script>
+    {% endif %}
 
     <!-- Highlight.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
