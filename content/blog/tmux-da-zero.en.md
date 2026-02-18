@@ -3,8 +3,6 @@ title = "Tmux: Minimal and Productive Configuration"
 date = 2026-02-18
 description = "Three windows. No panes. Zero plugins. One for the editor. One for continuous compilation. One for execution and tests. This is my daily setup with tmux. In this article I'll show you how to build a minimal, portable, and productive configuration from scratch."
 
-draft=true
-
 [taxonomies]
 tags = ["tmux"]
 

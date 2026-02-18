@@ -3,8 +3,6 @@ title = "Tmux: Configurazione Minimale e Produttiva"
 date = 2026-02-18
 description = "Tre finestre. Nessun pannello. Zero plugin. Una per l’editor. Una per la compilazione continua. Una per l’esecuzione e i test. Questo è il mio setup quotidiano con tmux. In questo articolo ti mostro come costruire una configurazione minimale, portabile e produttiva partendo da zero."
 
-draft=true
-
 [taxonomies]
 tags = ["tmux"]
 
