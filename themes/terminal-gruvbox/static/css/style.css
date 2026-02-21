@@ -31,7 +31,7 @@
   --border: var(--bg3);
 
   /* Typography */
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
   --font-size-base: 18px;
   --line-height: 1.7;
 
@@ -59,8 +59,11 @@ body {
   color: var(--fg1);
   line-height: var(--line-height);
   padding: 2rem 1rem;
+  font-weight: 400;
 }
-
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; 
+}
 /* ========================================
    LAYOUT
    ======================================== */
@@ -80,13 +83,32 @@ header {
 
 .site-title {
   font-size: 1.5rem;
-  color: var(--blue);
+  color: var(--blue) !important;
   text-decoration: none;
+  font-weight: bold;
   display: inline-block;
 }
 
+.site-title:link,
+.site-title:visited,
+.site-title:active {
+  color: var(--blue) !important;
+}
+
+.site-title::after {
+  content: '▊';
+  color: var(--accent) !important;
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+.site-title:hover::after {
+  animation: none;
+  opacity: 1;
+}
+
 .site-title:hover {
-  color: var(--yellow);
+  color: var(--yellow) !important;
 }
 
 .site-title::before {
@@ -484,19 +506,8 @@ figcaption {
   font-style: italic;
 }
 
-.site-title::after {
-  content: '▊';
-  color: var(--accent);
-  animation: blink 1s step-end infinite;
-  margin-left: 4px;
-}
-
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
 
-.site-title:hover::after {
-  animation: none;
-  opacity: 1;
-}
