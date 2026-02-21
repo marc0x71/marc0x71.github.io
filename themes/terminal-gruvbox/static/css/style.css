@@ -483,3 +483,20 @@ figcaption {
   font-size: 0.9rem;
   font-style: italic;
 }
+
+.site-title::after {
+  content: '▊';
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.site-title:hover::after {
+  animation: none;
+  opacity: 1;
+}
