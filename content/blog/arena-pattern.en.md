@@ -3,8 +3,6 @@ title = "Arena Pattern in Rust: Managing Cyclic References with Indices"
 date = 2026-02-25
 description = "There's a rite of passage every Rust programmer must face: writing a doubly linked list. In C++ it's a beginner exercise. In Python it takes three lines of code. In Rust, it's the moment many beginners hit a brick wall: the borrow checker. Suddenly, simple concepts like 'node A points to B and B points to A' become a nightmare of lifetimes, RefCell, and runtime panics. You feel stupid for not being able to write a data structure that a C programmer could write blindfolded in 1985. The good news? You're not the problem — the mental model is. In this article we'll stop fighting the compiler and learn to solve the problem at its root, using the Arena Pattern."
 
-draft=true
-
 [taxonomies]
 tags = ["rust", "pattern"]
 +++
@@ -334,8 +332,6 @@ struct Arena<T> {
 ```
 
 The space a removed node leaves behind isn't wasted: it contains the pointer to the next free slot. Zero overhead.
-
-A note on style: you might find implementations that use a sentinel value (typically `usize::MAX`) instead of `Option` to signal "no next slot." This is a common approach in C, but it's unidiomatic in Rust. `Option` communicates intent explicitly, is verified by the compiler, and thanks to [niche optimization](https://doc.rust-lang.org/std/option/index.html#representation), an `Option<usize>` doesn't take more memory than a `usize` on many platforms.
 
 ### Full implementation
 

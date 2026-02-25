@@ -3,8 +3,6 @@ title = "Arena Pattern in Rust: gestire riferimenti ciclici con gli indici"
 date = 2026-02-25
 description = "C'è un rito di passaggio che ogni programmatore Rust deve affrontare: scrivere una doubly linked list. In C++ è un esercizio da prima elementare. In Python ci vogliono tre righe di codice. In Rust, è il momento in cui molti principianti sbattono la testa contro un muro di mattoni: il borrow checker. Improvvisamente, concetti semplici come \"il nodo A punta a B e B punta ad A\" diventano un incubo di lifetime, RefCell, e panic a runtime. Ti senti stupido per non riuscire a scrivere una struttura dati che un programmatore C scriveva a occhi chiusi nel 1985. La buona notizia? Non sei tu il problema, è il modello mentale. In questo articolo smetteremo di combattere il compilatore e impareremo a risolvere il problema alla radice, usando l'Arena Pattern."
 
-draft=true
-
 [taxonomies]
 tags = ["rust", "pattern"]
 +++
@@ -334,8 +332,6 @@ struct Arena<T> {
 ```
 
 Lo spazio che un nodo rimosso lascia vuoto non viene sprecato: contiene il puntatore al prossimo slot libero. Zero overhead.
-
-Una nota sullo stile: potreste trovare implementazioni che usano un valore sentinella (tipicamente `usize::MAX`) al posto di `Option` per segnalare "nessun prossimo slot". È un approccio comune in C, ma in Rust è poco idiomatico. `Option` comunica l'intento in modo esplicito, viene verificato dal compilatore, e grazie alla [niche optimization](https://doc.rust-lang.org/std/option/index.html#representation) un `Option<usize>` non occupa più memoria di un `usize` su molte piattaforme.
 
 ### Implementazione completa
 
