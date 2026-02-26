@@ -434,33 +434,6 @@ impl<T> Arena<T> {
 }
 ```
 
-### Come funziona: un esempio visivo
-
-```
-Arena::with_capacity(5):
-
-  head_free: Some(0)
-  [0: Vacant→1] → [1: Vacant→2] → [2: Vacant→3] → [3: Vacant→4] → [4: Vacant→None]
-
-Dopo alloc("A"), alloc("B"), alloc("C"):
-
-  head_free: Some(3)
-  [0: Occ("A")]   [1: Occ("B")]   [2: Occ("C")]   [3: Vacant→4] → [4: Vacant→None]
-
-Dopo remove(1):      lo slot 1 diventa la nuova testa della free list
-
-  head_free: Some(1)
-  [0: Occ("A")]   [1: Vacant→3] → [3: Vacant→4] → [4: Vacant→None]
-                   [2: Occ("C")]
-
-Dopo alloc("D"):     riusa lo slot 1
-
-  head_free: Some(3)
-  [0: Occ("A")]   [1: Occ("D")]   [2: Occ("C")]   [3: Vacant→4] → [4: Vacant→None]
-```
-
-Sia `alloc` che `remove` sono **O(1)**: `alloc` preleva dalla testa della free list, `remove` inserisce in testa. Non c'è mai bisogno di cercare uno slot libero.
-
 ---
 
 ## I limiti: gli stale ID
@@ -585,30 +558,6 @@ impl<T> DoublyLinkedList<T> {
     }
 }
 ```
-
-Confrontiamola con la versione `Rc<RefCell<T>>`:
-
-| Aspetto | `Rc<RefCell<T>>` | Arena + indici |
-|---|---|---|
-| **Tipo dei link** | `Option<Rc<RefCell<Node<T>>>>` | `Option<usize>` |
-| **Inserimento** | `borrow_mut()`, `Rc::new`, `downgrade` | Accesso diretto per indice |
-| **Rimozione** | `upgrade()`, gestione `Weak` | `arena.remove(id)` |
-| **Rischio a runtime** | Panic da doppio `borrow_mut` | Nessuno (restituisce `Option`) |
-| **Overhead** | Reference counting + borrow check | Zero |
-| **Cache-friendliness** | Nodi sparsi nello heap | Nodi contigui nel `Vec` |
-
----
-
-## Oltre la linked list
-
-Se il pattern funziona per una doubly linked list, funziona per qualsiasi struttura con riferimenti complessi. La linked list è il caso più semplice, ma lo stesso approccio si applica a:
-
-- **Alberi con puntatori al padre**: ogni nodo ha un `Option<Id>` per il genitore e un `Vec<Id>` per i figli.
-- **Grafi arbitrari**: ogni nodo ha un `Vec<Id>` per i vicini, supportando cicli senza problemi.
-- **AST nei compilatori**: il compilatore Rust stesso (`rustc`) usa arene internamente per i nodi dell'Abstract Syntax Tree.
-- **Entity Component System**: i game engine come Bevy usano arene (via `slotmap` o strutture simili) per gestire le entità di gioco.
-
-Il principio è sempre lo stesso: **l'arena possiede i dati, gli indici descrivono le relazioni**.
 
 ---
 

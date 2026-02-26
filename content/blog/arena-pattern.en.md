@@ -434,33 +434,6 @@ impl<T> Arena<T> {
 }
 ```
 
-### How it works: a visual example
-
-```
-Arena::with_capacity(5):
-
-  head_free: Some(0)
-  [0: Vacant→1] → [1: Vacant→2] → [2: Vacant→3] → [3: Vacant→4] → [4: Vacant→None]
-
-After alloc("A"), alloc("B"), alloc("C"):
-
-  head_free: Some(3)
-  [0: Occ("A")]   [1: Occ("B")]   [2: Occ("C")]   [3: Vacant→4] → [4: Vacant→None]
-
-After remove(1):      slot 1 becomes the new head of the free list
-
-  head_free: Some(1)
-  [0: Occ("A")]   [1: Vacant→3] → [3: Vacant→4] → [4: Vacant→None]
-                   [2: Occ("C")]
-
-After alloc("D"):     reuses slot 1
-
-  head_free: Some(3)
-  [0: Occ("A")]   [1: Occ("D")]   [2: Occ("C")]   [3: Vacant→4] → [4: Vacant→None]
-```
-
-Both `alloc` and `remove` are **O(1)**: `alloc` takes from the head of the free list, `remove` inserts at the head. There's never a need to search for a free slot.
-
 ---
 
 ## The limits: stale IDs
@@ -586,30 +559,6 @@ impl<T> DoublyLinkedList<T> {
 }
 ```
 
-Let's compare it with the `Rc<RefCell<T>>` version:
-
-| Aspect | `Rc<RefCell<T>>` | Arena + indices |
-|---|---|---|
-| **Link type** | `Option<Rc<RefCell<Node<T>>>>` | `Option<usize>` |
-| **Insertion** | `borrow_mut()`, `Rc::new`, `downgrade` | Direct index access |
-| **Removal** | `upgrade()`, `Weak` handling | `arena.remove(id)` |
-| **Runtime risk** | Panic from double `borrow_mut` | None (returns `Option`) |
-| **Overhead** | Reference counting + borrow check | Zero |
-| **Cache-friendliness** | Nodes scattered across the heap | Nodes contiguous in the `Vec` |
-
----
-
-## Beyond the linked list
-
-If the pattern works for a doubly linked list, it works for any structure with complex references. The linked list is the simplest case, but the same approach applies to:
-
-- **Trees with parent pointers**: each node has an `Option<Id>` for its parent and a `Vec<Id>` for its children.
-- **Arbitrary graphs**: each node has a `Vec<Id>` for its neighbors, supporting cycles with no issues.
-- **ASTs in compilers**: the Rust compiler itself (`rustc`) uses arenas internally for Abstract Syntax Tree nodes.
-- **Entity Component Systems**: game engines like Bevy use arenas (via `slotmap` or similar structures) to manage game entities.
-
-The principle is always the same: **the arena owns the data, the indices describe the relationships**.
-
 ---
 
 ## The ecosystem: ready-to-use crates
@@ -623,25 +572,6 @@ There's no need to reimplement the arena from scratch for every project. The Rus
 - **[generational-arena](https://crates.io/crates/generational-arena)**: API similar to `slotmap`, focused on simplicity and correctness.
 
 - **[id-arena](https://crates.io/crates/id-arena)**: arena with typed IDs but no generational index. Simpler, suited for append-only scenarios where removal isn't needed.
-
----
-
-## When to use (and when to avoid) the pattern
-
-The index-based arena is a powerful tool, but it's not the answer to everything.
-
-**Use it when:**
-
-- You have structures with bidirectional or cyclic references (graphs, trees, linked lists).
-- Data has a uniform lifecycle (all created and destroyed in the same phase).
-- You need simple serialization (indices are trivial to serialize).
-- Performance matters: allocation is O(1), data is contiguous in memory.
-
-**Avoid it when:**
-
-- The structure is a simple tree with unidirectional ownership — `Box<T>` or `Vec<T>` are enough.
-- You need compile-time guarantees on references — Rust's lifetimes, however complex, offer guarantees that indices cannot provide.
-- Elements have very different lifecycles and removal is rare — a simple `Vec` with `Option<T>` might suffice.
 
 ---
 
